@@ -3,19 +3,19 @@
 
 ##解决tinymce报错问题
 
-- **1.package.json文件中找相关的依赖并删除
+- 1.package.json文件中找相关的依赖并删除
 
-- **2.dos窗口删除依赖npm uninstall vue-tinymce
+- 2.dos窗口删除依赖npm uninstall vue-tinymce
 
-- ** 3.重新下载npm install vue-tinymce
+- 3.重新下载npm install vue-tinymce
 
 ##select标签问题
 
-- **通过将vue版本号从2.3.3换成2.5.2是可以解决
+- 1.通过将vue版本号从2.3.3换成2.5.2是可以解决
 
-- **同时注意更换vue-template-compiler版本号，也要换到2.5.2
+- 2.同时注意更换vue-template-compiler版本号，也要换到2.5.2
 
-- **直接在package.json中修改版本号，然后npm install就行了
+- 3.直接在package.json中修改版本号，然后npm install就行了
 
 
 
