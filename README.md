@@ -1,7 +1,7 @@
-# vue-framework-wz #
+# vue-framework-range #
 
 
-##解决tinymce报错问题
+**解决tinymce报错问题
 
 - 1.package.json文件中找相关的依赖并删除
 
@@ -9,7 +9,8 @@
 
 - 3.重新下载npm install vue-tinymce
 
-##select标签问题
+
+**select标签问题
 
 - 1.通过将vue版本号从2.3.3换成2.5.2是可以解决
 
