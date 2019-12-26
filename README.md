@@ -18,7 +18,15 @@
 
 - 3.直接在package.json中修改版本号，然后npm install就行了
 
+**表格不显示问题**
 
+- 1.使用dos命令进入到项目目录下,执行npm install qiniu.js
+
+- 2.Table的列设置columns7中,设置第一列的width属性值为20,去掉引号
+
+- 3.修改index.html中引用qiniu.min.js的代码为bower_components/qiniu/src/qiniu.js
+
+- 4.重新执行 npm install -> npm run build:prod
 
 
 
