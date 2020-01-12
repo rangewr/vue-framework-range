@@ -1,6 +1,5 @@
-import {loginByEmail, logout, getInfo} from 'api/login';
+import axios from 'axios';
 import Cookies from 'js-cookie';
-import {asyncRouterMap} from 'src/router';
 
 const user = {
     state: {
@@ -10,14 +9,16 @@ const user = {
         code: '',
         uid: undefined,
         auth_type: '',
-        token: Cookies.get('Admin-Token'),
+        token: '',//Cookies.get('Admin-Token'),
         name: '',
         avatar: '',
         introduction: '',
         roles: [],
         setting: {
             articlePlatform: []
-        }
+        },
+        // 存储token
+        Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
     },
 
     mutations: {
@@ -59,55 +60,50 @@ const user = {
         },
         LOGOUT_USER: state => {
             state.user = '';
+        },
+        // 修改token，并将token存入localStorage
+        changeLogin(state, user) {
+            state.Authorization = user.Authorization;
+        },
+        changeLogOut(state, user) {
+            state.Authorization = user.Authorization;
         }
     },
 
     actions: {
-        // 邮箱登录
-        LoginByEmail({commit}, userInfo) {
-            const email = userInfo.email.trim();
+        // 登录
+        Login({ commit }, userInfo) {
             return new Promise((resolve, reject) => {
-                console.log("LoginByEmail asyncRouterMap ===============");
-                console.log(asyncRouterMap);
-                loginByEmail(email, userInfo.password).then(response => {
-                    const data = response.data;
-                    Cookies.set('Admin-Token', response.data.token);
-                    commit('SET_TOKEN', data.token);
-                    commit('SET_EMAIL', email);
+                axios.post('user/login', userInfo).then((response) => {
+                    const userinfo = response.data.responseData;
+                    Cookies.set('Admin-Token', userinfo.roles.roleName);
+                    commit('SET_TOKEN', userinfo.roles.roleName);
+                    commit('changeLogin', { "Authorization": userinfo.token });
+                    commit('SET_ROLES', [userinfo.roles.roleName]);
                     resolve();
-                }).catch(error => {
-                    reject(error);
+                }).catch(err => {
+                    console.log("登录异常");
+                    console.log(err);
+                    reject(err);
                 });
             });
         },
 
-
         // 获取用户信息
-        GetInfo({commit, state}) {
+        GetInfo({ commit, state }) {
             return new Promise((resolve, reject) => {
-                console.log("GetInfo asyncRouterMap ===============");
-                console.log(asyncRouterMap);
-                getInfo(state.token).then(response => {
-                    const data = response.data;
-                    commit('SET_ROLES', data.role);
-                    commit('SET_NAME', data.name);
-                    commit('SET_AVATAR', data.avatar);
-                    commit('SET_UID', data.uid);
-                    commit('SET_INTRODUCTION', data.introduction);
-                    resolve(response);
-                }).catch(error => {
-                    reject(error);
-                });
+                commit('SET_ROLES', state.token);
+                resolve();
             });
         },
 
         // 第三方验证登录
-        LoginByThirdparty({commit, state}, code) {
+        LoginByThirdparty({ commit, state }, code) {
             return new Promise((resolve, reject) => {
                 commit('SET_CODE', code);
                 loginByThirdparty(state.status, state.email, state.code, state.auth_type).then(response => {
                     commit('SET_TOKEN', response.data.token);
-                    Cookies.set('Admin-Token', response.data.token);
+                    // Cookies.set('Admin-Token', response.data.token);
                     resolve();
                 }).catch(error => {
                     reject(error);
@@ -117,32 +113,26 @@ const user = {
 
 
         // 登出
-        LogOut({commit, state}) {
+        LogOut({ dispatch, commit, state, rootState }) {
             return new Promise((resolve, reject) => {
-                logout(state.token).then(() => {
-                    commit('SET_TOKEN', '');
-                    commit('SET_ROLES', []);
-                    Cookies.remove('Admin-Token');
-                    window.location.reload();
-                    resolve();
-                }).catch(error => {
-                    reject(error);
-                });
+                commit('SET_TOKEN', '');//清除token
+                commit('SET_ROLES', []);//清除用户角色,再次登录时,重新生成路由
+                commit('changeLogOut', { "Authorization": '' });
+                Cookies.remove('Admin-Token');
+                resolve();
             });
         },
 
         // 前端 登出
-        FedLogOut({commit}) {
+        FedLogOut({ commit }) {
             return new Promise(resolve => {
                 commit('SET_TOKEN', '');
-                Cookies.remove('Admin-Token');
-                alert("has logout");
                 resolve();
             });
         },
 
         // 动态修改权限
-        ChangeRole({commit}, role) {
+        ChangeRole({ commit }, role) {
             return new Promise(resolve => {
                 commit('SET_ROLES', [role]);
                 commit('SET_TOKEN', role);

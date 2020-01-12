@@ -1,8 +1,8 @@
 {
-  "name": "RanGe",
+  "name": "XAD",
   "version": "1.0.0",
-  "description": "WZ base on Vue.js",
-  "author": "herozhou <zhouhero@hotmail.com>",
+  "description": "XAD base on Vue.js",
+  "author": "XAD",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -13,7 +13,6 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "@packy-tang/vue-tinymce": "github:lpreterite/vue-tinymce",
     "async-validator": "^1.7.1",
     "axios": "0.16.2",
     "deepmerge": "^1.5.0",

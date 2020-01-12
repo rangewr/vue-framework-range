@@ -52,6 +52,12 @@
           <Button type="primary" size="large" @click="exportData(2)">
             <Icon type="ios-download-outline"></Icon>导出排序和过滤后的数据
           </Button>
+          <Button type="primary" size="large" @click="testAxios">
+            <Icon type="ios-download-outline"></Icon>测试请求
+          </Button>
+          <Button type="primary" size="large" @click="testSingleAxios">
+            <Icon type="ios-download-outline"></Icon>登录请求
+          </Button>
         </div>
       </Col>
       <Col :md="12"></Col>
@@ -61,6 +67,8 @@
 
 <script>
 import expandRow from "./table-expand.vue";
+import axios from "axios";
+import { mapMutations } from "vuex";
 
 var vue;
 var uploader;
@@ -369,6 +377,7 @@ export default {
       page_video_list: [],
       lodding: false,
       list_loadding: false,
+      token: "",
       columns7: [
         {
           type: "expand",
@@ -600,9 +609,8 @@ export default {
                       click: () => {
                         //alert((this.pageindex - 1) * 10 + params.index)
                         this.$router.push({
-                          path:
-                            "/tabledetail"
-                            //+((this.pageindex - 1) * 10 + params.index)
+                          path: "/tabledetail"
+                          //+((this.pageindex - 1) * 10 + params.index)
                         });
                       }
                     }
@@ -632,9 +640,11 @@ export default {
     }; //return
   }, //data
   methods: {
+    //vuex
+    ...mapMutations(["changeLogin"]),
     remove(index) {
       this.video_list.splice(index, 1);
-      this.page_video_list.splice(index,1);
+      this.page_video_list.splice(index, 1);
     },
     qiniu_upload() {
       uploader.start();
@@ -650,6 +660,34 @@ export default {
           break;
         }
       }
+    },
+    testAxios() {
+      let videoMove = {
+        id: 1
+      };
+      axios
+        .post("home/testDB", videoMove)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    //登录login方法
+    testSingleAxios() {
+      let videoMove = {
+        username: "wsl",
+        password: "123456"
+      };
+      axios.post("user/login", videoMove)
+        .then(response => {
+          this.token = response.data.responseData ;
+          this.changeLogin({ Authorization: this.token });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     exportData(type) {
       if (type === 1) {

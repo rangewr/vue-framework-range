@@ -28,6 +28,17 @@
 
 - 4.重新执行 npm install -> npm run build:prod
 
+**登录时保存的值**
+
+- 1.登录之后需要动态获取路由,此时需要先保存token
+
+- 2.在src/store/modules/user.js中的LoginByEmail方法中,保存了如下三个值, 这三个值在后期获取动态路由时需要用到,所以在登录成功后必须要保存这三个值
+
+    Cookies.set('Admin-Token', response.data.token);<br>
+    commit('SET_TOKEN', data.token);<br>
+    commit('SET_EMAIL', email);<br>
+    resolve();
+
 
 
 [![TeamCity CodeBetter](https://img.shields.io/teamcity/codebetter/bt428.svg)]() [![npm](https://img.shields.io/npm/dw/localeval.svg)]() [![npm](https://img.shields.io/npm/v/npm.svg)]() [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/nimelepbpejjlbmoobocpfnjhihnpked.svg)]()[![Sourcegraph for Repo Reference Count](https://img.shields.io/sourcegraph/rrc//github.com/gorilla/mux.svg)]()[![GitHub watchers](https://img.shields.io/github/watchers/badges/shields.svg?style=social&label=Watch)]()

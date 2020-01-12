@@ -30,7 +30,15 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         staticPath:'/static/',
-        proxyTable: {},
+        proxyTable: {
+            // "/api":{
+            //     target:"http://localhost:8080/xandPwdManage",
+            //     changeOrigin:true,
+            //     pathRewrite:{
+            //         '^/api':''
+            //     }
+            // }
+        },
         // CSS Sourcemaps off by default because relative paths are "buggy"
         // with this option, according to the CSS-Loader README
         // (https://github.com/webpack/css-loader#sourcemaps)

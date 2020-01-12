@@ -23,19 +23,19 @@
 
 var data = [{
     value: 3661,
-    name: '对E字典模板'
+    name: '对E字典学习'
 }, {
     value: 5713,
-    name: '对M字典模板'
+    name: '对M字典学习'
 }, {
     value: 9938,
-    name: '测试字典模板'
+    name: '测试字典学习'
 }, {
     value: 17623,
-    name: '对C字典模板'
+    name: '对C字典学习'
 }, {
     value: 3299,
-    name: '本地字典模板'
+    name: '本地字典学习'
 }];
 
 
@@ -76,7 +76,7 @@ option : {
             fontSize: 16,
              color: '#fff',
         },
-        data: ['对E字典模板', '对M字典模板', '测试字典模板', '对C字典模板', '本地字典模板']
+        data: ['对E字典学习', '对M字典学习', '测试字典学习', '对C字典学习', '本地字典学习']
     },
     series: [{
         type: 'pie',

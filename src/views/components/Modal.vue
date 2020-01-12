@@ -26,7 +26,7 @@
         methods: {
             ok() {
                 this.modal1 = false,
-                    this.$Message.info('点击了确定');
+                    this.$Message.info('提示信息');
             },
             cancel() {
                 this.$Message.info('点击了取消');

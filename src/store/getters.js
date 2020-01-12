@@ -13,6 +13,7 @@ const getters = {
   setting: state => state.user.setting,
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
-  siderbar_routers:state => state.permission.siderbar_routers,
+  siderbar_routers: state => state.permission.siderbar_routers,
+  Authorization: state => state.user.Authorization,
 };
 export default getters

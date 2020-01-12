@@ -2,20 +2,15 @@
     <div class="animated fadeIn">
 
         <Row>
-
             <Col :sm="24" :md="8">
                 <h3>👍RanGe后台管理框架👍</h3>
-                <h5><a href="https://github.com/herozhou/vue-framework-wz" target="_blank">github地址（喜欢就点个start呗）</a>
+                <h5><a href="https://github.com/rangewr/vue-framework-range" target="_blank">github地址（喜欢就点个start呗）</a>
                 </h5>
                 <Row>
-
                 </Row>
-
             </Col>
 
-
             <div class="state-info">
-
                 <section class="panel">
                     <div class="panel-body">
                         <div class="summary">
@@ -26,7 +21,6 @@
                         <div id="expense" class="chart-bar"><img src="static/img/greenincome.png"></div>
                     </div>
                 </section>
-
 
                 <section class="panel">
 
@@ -45,57 +39,6 @@
                 </section>
             </div>
         </Row>
-
-        <Row>
-            <Col :sm="24" :md="12">
-                <h5 style="color: orange">
-                    解决tinymce报错问题
-                </h5>
-                <p>
-                    1.package.json文件中找相关的依赖并删除
-                </p>
-                <p>
-                    2.dos窗口删除依赖npm uninstall vue-tinymce
-                </p>
-                <p>
-                    3.重新下载npm install vue-tinymce
-                </p>
-            </Col>
-            <Col>
-                <h5 style="color: #2ac56c">
-                    select标签问题
-                </h5>
-                <p>
-                    通过将vue版本号从2.3.3换成2.5.2是可以解决
-                </p>
-                <p>
-                    同时注意更换vue-template-compiler版本号，也要换到2.5.2
-                </p>
-                <p>
-                    直接在package.json中修改版本号，然后npm install就行了
-                </p>
-            </Col>
-            <hr style="color: #dcdcdc;">
-            <Col :sm="24" :md="12">
-                <h5 style="color: #9a3789">
-                    登录时保存的值
-                </h5>
-                <p>
-                    登录之后需要动态获取路由,此时需要先保存token
-                </p>
-                <p>
-                    在src/store/modules/user.js中的LoginByEmail方法中,保存了如下三个值
-                </p>
-                <p style="color: #5df">
-                    Cookies.set('Admin-Token', response.data.token);<br>
-                    commit('SET_TOKEN', data.token);<br>
-                    commit('SET_EMAIL', email);<br>
-                    resolve();
-                </p>
-                <p>这三个值在后期获取动态路由时需要用到,所以在登录成功后必须要保存这三个值</p>
-            </Col>
-        </Row>
-
         <Row :gutter="16" style="margin-top:45px">
             <Col :xs="24" :sm="12" :md="12" :lg="12">
                 <div class="state-overview">
@@ -350,17 +293,15 @@
                 //收到了后台返回的路径
                 var path = "";
                 this.imgpath = "/static/img/redincome.png";
-            }
+            },
         },
         mounted() {
             const token = this.$store.getters.token;
 
-            this.$Notice.success({
-                title: '欢迎使用 WZ 框架',
-                desc: `你的账户权限是 ${token}
-                            <br>
-                            喜欢就去github给个 start 鼓励一下吧`,
-                duration: 10
+            this.$Notice.info({
+                title: '欢迎使用 RanGe 框架',
+                desc: `喜欢的就点个赞吧!`,
+                duration: 5//设置弹框显示时间(秒)
             });
 
         }

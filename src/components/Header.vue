@@ -161,13 +161,13 @@
         },
         methods: {
             Logout(e) {
-                console.log("in the Logout function asyncRoutersMap =====");
-                console.log(asyncRouterMap);
                 e.preventDefault();
                 this.$store.dispatch('LogOut').then(() => {
-                    this.$router.push({path: '/login'});
+                    this.$store.dispatch('LogOutClearRouters').then(()=>{
+                        this.$router.push({path: '/login'});
+                    })
                 }).catch(err => {
-                    this.$message.error(err);
+                    this.$Message.error(err);
                 });
             },
             click() {
