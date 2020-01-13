@@ -9,11 +9,11 @@ const user = {
         code: '',
         uid: undefined,
         auth_type: '',
-        token: '',//Cookies.get('Admin-Token'),
+        token: Cookies.get('Admin-Token'),
         name: '',
         avatar: '',
         introduction: '',
-        roles: [],
+        roles: Cookies.get('Admin-Token'),
         setting: {
             articlePlatform: []
         },
@@ -77,9 +77,8 @@ const user = {
                 axios.post('user/login', userInfo).then((response) => {
                     const userinfo = response.data.responseData;
                     Cookies.set('Admin-Token', userinfo.roles.roleName);
-                    commit('SET_TOKEN', userinfo.roles.roleName);
+                    Cookies.set('User-Name', userinfo.username);
                     commit('changeLogin', { "Authorization": userinfo.token });
-                    commit('SET_ROLES', [userinfo.roles.roleName]);
                     resolve();
                 }).catch(err => {
                     console.log("登录异常");
@@ -113,12 +112,11 @@ const user = {
 
 
         // 登出
-        LogOut({ dispatch, commit, state, rootState }) {
-            return new Promise((resolve, reject) => {
-                commit('SET_TOKEN', '');//清除token
-                commit('SET_ROLES', []);//清除用户角色,再次登录时,重新生成路由
+        LogOut({ commit  }) {
+            return new Promise((resolve) => {
                 commit('changeLogOut', { "Authorization": '' });
                 Cookies.remove('Admin-Token');
+                Cookies.remove('User-Name');
                 resolve();
             });
         },

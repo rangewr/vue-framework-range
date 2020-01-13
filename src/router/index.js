@@ -96,12 +96,6 @@ export const asyncRouterMap = [
                     icon: 'ios-arrow-down',
                     component: _import('components/Select')
                 },
-                // {
-                //     path: 'select',
-                //     name: 'Select选择器',
-                //     icon: 'ios-arrow-down',
-                //     component: _import('components/Select')
-                // },
                 { path: 'spin', name: 'Spin加载中', icon: 'load-d ', component: _import('components/Spin') },
                 {
                     path: 'steps',

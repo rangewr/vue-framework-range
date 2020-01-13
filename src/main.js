@@ -66,7 +66,9 @@ Axios.interceptors.response.use(function (response) {
         //     duration: 0
         // });
         store.dispatch('LogOut').then(() => {
-            router.push({ path: '/login' });
+            store.dispatch('LogOutClearRouters').then(() => {
+                router.push({ path: '/login' });
+            });
           }).catch(err => {
             _this.$Message.error(err);
           });

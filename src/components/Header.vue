@@ -152,7 +152,7 @@
         name: 'header',
         data() {
             return {
-                userName: Cookies.get("Admin-Token"),
+                userName: Cookies.get("User-Name"),//获取cookies中的用户名
             }
         },
         components: {

@@ -7,7 +7,7 @@ import { asyncRouterMap, constantRouterMap } from 'src/router';
  */
 function hasPermission(roles, route) {
     if (route.meta && route.meta.role) {
-        return roles.some(role => route.meta.role.indexOf(role) >= 0);//允许角色中包含当前用户的角色
+        return [roles].some(role => route.meta.role.indexOf(role) >= 0);//允许角色中包含当前用户的角色
     } else {
         return true
     }
@@ -89,6 +89,7 @@ const permission = {
                 // var RouterMap = asyncRouterMap.slice(0);
                 //五 深度复制数组
                 var RouterMap = _.cloneDeep(asyncRouterMap);
+                // var RouterMap = asyncRouterMap;
                 var accessedRouters;
                 if (roles.indexOf('admin') >= 0) {
                     accessedRouters = RouterMap

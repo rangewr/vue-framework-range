@@ -19,17 +19,18 @@ function hasPermission(roles, permissionRoles) {
 const whiteList = ['/login', '/authredirect'];// 不重定向白名单
 router.beforeEach((to, from, next) => {
     NProgress.start(); // 开启Progress
-    if (Cookies.get("Admin-Token")) { // 判断是否有token
-    // if (store.getters.token) {
+    if (Cookies.get("Admin-Token")) { 
+    // if (store.getters.token) {// 判断是否有token
         if (to.path === '/login') {
             next({ path: '/' });
         } else {
             if (store.getters.addRouters.length === 0) { // 判断当前用户是否已拉取完user_info信息
-                const roles = store.getters.roles;
+                // const roles = store.getters.roles;
+                const roles = Cookies.get("Admin-Token");
                 store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
                     router.matcher = new VueRouter({ routes: constantRouterMap }).matcher;
                     router.addRoutes(store.getters.addRouters);
-                    next({ ...to, replace: true });
+                    next({ ...to });
                 })
             } else {
                 store.dispatch('getNowRoutes', to);
